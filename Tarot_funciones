@@ -1,0 +1,127 @@
+/*
+Enunciado: Calcular el numero del tarot de una persona ingresando la fecha de nacimiento.
+Analisis:
+	Salida: Numero de tarot.
+	Entrada: Fecha de nacimiento de un usuario.
+	Proceso: Pedir y leer la fecha de nacimiento de un usuario dia(dia), mes(mes), año(anio); a continuacion realizaremos una funcion(verificar) que nos permita dividir la fecha de 
+	nacimiento en digitos y sumarlos, verificaremos que el resultado sea digito, en caso contrario reduciremos la cifra hasta lograr obtener un digito,  para esto tendremos que 
+	descomponer la cifra en digitos, sumarlos  y asi sucesivamente hasta obtener un solo digito como resultado, para finalizar, imprimiremos en pantalla el digito resultante como el 
+	numero de tarot.
+	Restricciones: El día de nacimiento debe estar en el rango 1-31
+				   El mes de nacimiento debe estar en el rango 1-12
+				   El año de nacimiento debe estar en el rango 1-2021
+	
+Diseño:
+	pseudocodigo:
+Funcion verificacion(day,month,year)
+definir day,month,year,piv,tar1,sumd,sumd1,summ,summ1,piv1,acum,acumf,acumff,taralg como Enteros
+	si day<=30 & month<=12 & year<=2020 Entonces
+		Piv<-0
+		tar1<-0
+		sumd=day%10
+		sumd1=day/10
+		summ=month%10
+		summ1=month/10
+		Mientras year>=1 Hacer
+			piv1=year%10
+			acum=acum+piv1
+			year=year/10
+		FinMientras
+		acumf=acum+sumd+sumd1+summ+summ1
+		Mientras acumf>=9 Hacer
+			acumff=acumf%10
+			acumf=acumf/10
+		Fin Mientras
+		Taralg=acumf+acumff
+		regresar taralg
+	SiNo
+		Escribir "Fecha incorrecta"
+	FinSi
+FinFuncion
+
+Inicio
+	Definir día,mes,anio como Enteros
+	Escribir "Día de nacimiento:"
+	Leer dia 
+	Escribir "Mes de nacimiento:"
+	Leer mes 
+	Escribir "Año de nacimiento:"
+	Leer anio
+	Verificacion(dia,mes,anio)
+	si taralg>=10 Entonces
+		tar1alg=taralg%10
+		taralg=taralg/10
+		Escribir tar1alg+taralg
+	SiNo
+		Escribir taralg
+	FinSi
+Fin
+
+	
+ Prueba de escritorio:
+
+
+*/
+#include <iostream>
+using namespace std;
+
+//Prototipo de Funcion
+int verificar(int day,int month, int year);
+
+
+int main(){
+int dia,mes,anio,tarot;
+cout<< "Este programa calculara tu numero del tarot"<<endl;
+cout<< "ingrese su dia de nacimiento"<<endl;
+cin>> dia;
+cout<< "ingrese su mes de nacimieto "<<endl;
+cin>> mes;
+cout<< "ingrese su año de nacimiento"<<endl;
+cin>> anio;
+tarot=verificar(dia, mes, anio);
+if (dia<=31 && mes<=12 && anio<=2021)	//Limita las condiciones de día, mes y año.
+{
+	cout<<"Tu numero del tarot es:"<<tarot<<endl;
+
+return 0;
+}
+else
+{
+	cout<<"Fecha incorrecta";	
+}
+}
+
+//Definicion de Función 
+int verificar(int day,int month,int year)
+{
+int sumd=0, sumd1=0,summ=0,summ1=0,piv=0,acum=0,piv1=0,acumf=0,acumff=0,tar=0,tarpre=0,tarpre1=0;
+	sumd=day%10;
+	sumd1=day/10;
+	summ=month%10;
+	summ1=month/10;
+	while(year>9)
+	{
+	piv1=year%10;
+	acum=acum+piv1;
+	year=year/10;	
+	}	
+	acumf=acum+sumd+sumd1+summ+summ1+year;
+	while(acumf>9)
+	{
+		acumff=acumf%10;
+			acumf=acumf/10;
+	}
+	tar=acumf+acumff;
+	
+	if (tar>9)
+	{
+		tarpre1=tar%10;
+		tar=tar/10;
+		tarpre=tar+tarpre1;
+		return tarpre;
+	}
+	else
+	{
+		return tar;
+	}
+}
